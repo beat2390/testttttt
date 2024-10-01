@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Submit with Author and Timestamp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+        }
+        select, textarea, button {
+            margin-bottom: 20px;
+        }
+        .display {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            min-height: 50px;
+        }
+        .entry {
+            margin-bottom: 10px;
+        }
+        .author {
+            font-weight: bold;
+        }
+        .timestamp {
+            font-style: italic;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Submit Your Text</h1>
+
+        <!-- Dropdown for name selection -->
+        <label for="author">Select a name:</label>
+        <select id="author">
+            <option value="" disabled selected>Select a name</option>
+            <option value="Allan">Allan</option>
+            <option value="Gilbert">Gilbert</option>
+            <option value="David">David</option>
+            <option value="Gustavo">Gustavo</option>
+            <option value="Juan">Juan</option>
+            <option value="Pablo">Pablo</option>
+        </select><br>
+
+        <!-- Text area for input -->
+        <label for="inputText">Write something:</label>
+        <textarea id="inputText" placeholder="Write something..."></textarea><br>
+
+        <!-- Button to submit -->
+        <button onclick="submitText()">Submit</button>
+
+        <!-- Div to display the submitted text with author and timestamp -->
+        <div id="displayText" class="display">
+            <!-- The submitted entries will be shown here -->
+        </div>
+    </div>
+
+    <script>
+        function submitText() {
+            // Get the selected author
+            var author = document.getElementById('author').value;
+            
+            // Get the text from the textarea
+            var text = document.getElementById('inputText').value;
+
+            // If no author or no text is provided, show an alert
+            if (!author) {
+                alert("Please select an author.");
+                return;
+            }
+            if (!text) {
+                alert("Please write something before submitting.");
+                return;
+            }
+
+            // Get the current date and time
+            var now = new Date();
+            var date = now.toLocaleDateString();
+            var time = now.toLocaleTimeString();
+
+            // Create a new entry
+            var entry = `<div class="entry">
+                            <p>${text}</p>
+                            <div class="author">Author: ${author}</div>
+                            <div class="timestamp">Date: ${date}, Time: ${time}</div>
+                         </div>`;
+
+            // Add the entry to the displayText div
+            document.getElementById('displayText').innerHTML += entry;
+
+            // Clear the textarea after submission
+            document.getElementById('inputText').value = '';
+        }
+    </script>
+
+</body>
+</html>
+
